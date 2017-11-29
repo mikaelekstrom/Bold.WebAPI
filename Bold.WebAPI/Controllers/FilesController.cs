@@ -1,13 +1,14 @@
 ﻿using System;
-using System.IO;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web.Http;
+using Bold.WebAPI.Commons.Constants;
 using Bold.WebAPI.Data.Files;
+using Microsoft.Web.Http;
 
 namespace Bold.WebAPI.Controllers
 {
+    [ApiVersion("1")]
+    [RoutePrefix(Constants.RoutePrefixes.FilesPrefix)]
     public class FilesController : ApiController
     {
         private readonly IFileManager _fileManager;
@@ -16,16 +17,14 @@ namespace Bold.WebAPI.Controllers
 
         public FilesController(IFileManager fileManager)
         {
-            if (fileManager == null) throw new ArgumentNullException(nameof(fileManager));
-            _fileManager = fileManager;
+            _fileManager = fileManager ?? throw new ArgumentNullException(nameof(fileManager));
         }
 
+        [Route("{fileId}")]
         public HttpResponseMessage GetFile(int fileId)
         {
-            var dataStream = _fileManager.GetDataStream(fileId);
-            Action<Stream, HttpContent, TransportContext> writeToStream = dataStream.GetStream;
             var response = Request.CreateResponse();
-            response.Content = new PushStreamContent(writeToStream, new MediaTypeHeaderValue("application/octet-stream"));
+            _fileManager.GetDataAsStream(fileId, response);
             return response;
         }
     }

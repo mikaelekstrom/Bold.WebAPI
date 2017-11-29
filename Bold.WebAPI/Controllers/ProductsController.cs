@@ -1,32 +1,30 @@
-﻿using System;
+﻿using Microsoft.Web.Http;
+using System;
 using System.Web.Http;
-using Bold.WebAPI.Data.SalesItems;
-using Microsoft.Web.Http;
+using System.Web.Script.Serialization;
+using Bold.WebAPI.Commons.Constants;
+using Bold.WebAPI.Data.Products;
 
 namespace Bold.WebAPI.Controllers
 {
-    [ApiVersion("2.0")]
-    [RoutePrefix("products")]
+    [ApiVersion("1")]
+    [RoutePrefix(Constants.RoutePrefixes.ProductsPrefix)]
     public class ProductsController : ApiController
     {
-        private readonly ISalesItemsManager _manager;
+        private readonly IProductDataManger _manager;
 
-        public ProductsController() : this(new SalesItemManager()) {}
+        public ProductsController() : this(new ProductDataManager()) {}
 
-        public ProductsController(ISalesItemsManager salesManager)
+        public ProductsController(IProductDataManger manager)
         {
-            if (salesManager == null) throw new ArgumentNullException(nameof(salesManager));
-            _manager = salesManager;
+            _manager = manager ?? throw new ArgumentNullException(nameof(manager));
         }
 
-        public string GetProduct(string id)
+        [Route("{productId}")]
+        public string GetProduct(string locale, string productId)
         {
-            /*
-            var productData = _manager.GetSalesItemByProductId(id);
-            return productData.ToString();
-            */
-            return $"You asked for produt {id}.";
+            var product = _manager.GetProduct(productId, locale);
+            return new JavaScriptSerializer().Serialize(product);
         }
-
     }
 }

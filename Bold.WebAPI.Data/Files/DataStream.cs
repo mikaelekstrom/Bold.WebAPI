@@ -26,13 +26,13 @@ namespace Bold.WebAPI.Data.Files
         {
             try
             {
-                var bytes = new byte[0];
+                byte[] bytes;
                 var index = 0;
                 do
                 {
                     bytes = _server.ResourceBinaryDataSelectChunk(_fileId, index, FileTransfer.FileChunkSize);
-                    await outputStream.WriteAsync(bytes, index, FileTransfer.FileChunkSize);
-                    index += FileTransfer.FileChunkSize;
+                    await outputStream.WriteAsync(bytes, 0, bytes.Length);
+                    index += bytes.Length;
                 } while (!bytes.Length.Equals(0));
             }
             catch (HttpException ex)

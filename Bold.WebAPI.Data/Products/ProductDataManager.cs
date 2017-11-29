@@ -1,26 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Bold.WebAPI.Data.Helpers;
-using Dacsa.Data.Entities.Objects;
-using Dacsa.Framework.Shared.Interfaces;
+using Bold.WebAPI.Commons.Helpers;
+using Bold.WebAPI.Data.SalesItems;
+using Bold.WebAPI.Data.Transformers;
+
 
 namespace Bold.WebAPI.Data.Products
 {
-    internal class ProductManager
+    public class ProductDataManager : IProductDataManger
     {
-        private readonly IServer _server;
-        public ProductManager() : this(ServiceHelper.GetIServerServiceWrapper()) {}
+        private readonly ISalesItemsManager _manager;
+        private readonly LanguageHelper _languageHelper;
+        public ProductDataManager() : this(new SalesItemManager()) {}
 
-        public ProductManager(IServer service)
+        public ProductDataManager(ISalesItemsManager manager)
         {
-            _server = service ?? throw new ArgumentNullException(nameof(service));
+            _manager = manager ?? throw new ArgumentNullException(nameof(manager));
+            _languageHelper = new LanguageHelper();
         }
 
-        public List<GroupTreeNodesView> GetTreeNodesForTreeAndLanguage(int treeId, int languageId)
+        public Model.Product.Product GetProduct(string productId, string locale)
         {
-            var nodes = _server.GetGroupTreeNodes(treeId, languageId);
-            return nodes?.ToList() ?? new List<GroupTreeNodesView>();
+            var data = _manager.GetSalesItemByProductId(productId);
+            var langId = _languageHelper.GetLanguageId(locale);
+            var info = _manager.GetProductInfo(data.Item1.SalesItemsId, langId);
+            var resourceDtos = _manager.GetResourcePicturesInfoBySalesItemId(data.Item1.SalesItemsId);
+            var product = ProductTransformer.CreateProductFromBoldData(data, info, resourceDtos);
+            return product;
         }
     }
 }

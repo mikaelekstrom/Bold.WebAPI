@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using System.Net.Http.Formatting;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Routing;
+using Bold.WebAPI.Helpers;
+using Microsoft.Web.Http.Routing;
 using Newtonsoft.Json.Serialization;
 
 namespace Bold.WebAPI
@@ -9,18 +10,21 @@ namespace Bold.WebAPI
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            var constraintResolver = new DefaultInlineConstraintResolver
+            {
+                ConstraintMap =
+                {
+                    ["apiVersion"] = typeof(ApiVersionRouteConstraint)
+                }
+            };
 
-            // Web API routes
-            config.MapHttpAttributeRoutes();
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            GlobalConfiguration.Configure(s => 
+                s.MapHttpAttributeRoutes(constraintResolver, new GlobalPrefixProvider("api/v{version:apiVersion}")));
 
-            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.AddApiVersioning();
+
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

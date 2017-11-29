@@ -36,8 +36,15 @@
     <Reference Include="Dacsa.Data.Access">
       <HintPath>Solution files\Dacsa.Data.Access.dll</HintPath>
     </Reference>
-    <Reference Include="Dacsa.Data.Entities">
+    <Reference Include="Dacsa.Data.Entities, Version=6.0.5.106, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>Solution files\Dacsa.Data.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Dacsa.Framework.Aspects">
+      <HintPath>Solution files\Dacsa.Framework.Aspects.dll</HintPath>
+    </Reference>
+    <Reference Include="Dacsa.Framework.Client">
+      <HintPath>Solution files\Dacsa.Framework.Client.dll</HintPath>
     </Reference>
     <Reference Include="Dacsa.Framework.Server">
       <HintPath>Solution files\Dacsa.Framework.Server.dll</HintPath>
@@ -78,9 +85,6 @@
     <Reference Include="Dacsa.Server.Procurement">
       <HintPath>Solution files\Dacsa.Server.Procurement.dll</HintPath>
     </Reference>
-    <Reference Include="Dacsa.Server.ProductManagement">
-      <HintPath>Solution files\Dacsa.Server.ProductManagement.dll</HintPath>
-    </Reference>
     <Reference Include="Dacsa.Server.Returns">
       <HintPath>Solution files\Dacsa.Server.Returns.dll</HintPath>
     </Reference>
@@ -102,9 +106,17 @@
     <Reference Include="DataService">
       <HintPath>Solution files\DataService.dll</HintPath>
     </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Export.Excel.v9, Version=9.3.4300.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -115,16 +127,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categories\CategoriesManager.cs" />
+    <Compile Include="Categories\ICategoriesManager.cs" />
     <Compile Include="Files\DataStream.cs" />
     <Compile Include="Files\FileManager.cs" />
     <Compile Include="Files\IFileManager.cs" />
-    <Compile Include="Helpers\Constants.cs" />
-    <Compile Include="Helpers\ServiceHelper.cs" />
-    <Compile Include="Helpers\ServiceWrapper.cs" />
+    <Compile Include="Products\IProductDataManger.cs" />
     <Compile Include="Products\ProductDataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesItems\ISalesItemsManager.cs" />
     <Compile Include="SalesItems\SalesItemManager.cs" />
+    <Compile Include="StoreConfigurations\IStoreConfigurationsManager.cs" />
+    <Compile Include="StoreConfigurations\StoreConfigurationsManager.cs" />
+    <Compile Include="Transformers\ProductTransformer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bold.WebAPI.Commons\Bold.WebAPI.Commons.csproj">
+      <Project>{5c90238e-6a05-4587-9a85-927ea016824f}</Project>
+      <Name>Bold.WebAPI.Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bold.WebAPI.Model\Bold.WebAPI.Model.csproj">
+      <Project>{82770a14-6f5d-4075-b367-3c1d74c4c127}</Project>
+      <Name>Bold.WebAPI.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,9 @@
-﻿namespace Bold.WebAPI.Data.Files
+﻿using System.Net.Http;
+
+namespace Bold.WebAPI.Data.Files
 {
     public interface IFileManager
     {
-        DataStream GetDataStream(int fileId);
+        HttpResponseMessage GetDataAsStream(int fileId, HttpResponseMessage response);
     }
 }
