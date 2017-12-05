@@ -1,0 +1,10 @@
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\bin\Debug\Bold.WebAPI.Commons.dll
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\bin\Debug\Bold.WebAPI.Commons.pdb
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\bin\Debug\Dacsa.Data.Entities.dll
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\bin\Debug\Dacsa.Framework.Shared.dll
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\bin\Debug\Dacsa.Framework.Aspects.dll
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\bin\Debug\DataEntityTier.dll
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\obj\Debug\Bold.WebAPI.Commons.csproj.CoreCompileInputs.cache
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\obj\Debug\Bold.WebAPI.Commons.dll
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\obj\Debug\Bold.WebAPI.Commons.pdb
+C:\Users\mikael\documents\visual studio 2017\Projects\Bold.WebAPI\Bold.WebAPI.Commons\obj\Debug\Bold.WebAPI.Commons.csprojResolveAssemblyReference.cache
